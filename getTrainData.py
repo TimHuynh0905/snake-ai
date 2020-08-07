@@ -5,16 +5,16 @@ from tqdm import tqdm
 def newTrainingData():
     train_X = []
     train_y = []
-    train_games = 100
-    train_steps = 1000
+    train_games = 50
+    train_steps = 2000
     for _ in tqdm(range(train_games)):
         snakeHead, snakePositions, applePosition, score = startingPositions()
         game = SnakeGame(snakePositions, applePosition, score)
         for j in range(train_steps):
             angle, appleDV_Normalized, snakeDV_Normalized = angleSnakeApple(snakePositions, applePosition)
-            direction, button_direction = nextDirection(snakePositions, angle)
-            currentDV, isFrontBlocked, isLeftBlocked, isRightBlocked = blockedDirections(snakePositions)
-            direction, button_direction, train_y = getTrainY(
+            direction, button_direction = nextDirection(snakePositions, angle) # FIRST STEP DETERMINE DIRECTION
+            _, isFrontBlocked, isLeftBlocked, isRightBlocked = blockedDirections(snakePositions) # CHECK IF THAT DIRECTION WORKS
+            _, updated_button_direction, train_y = getTrainY(
                 snakePositions = snakePositions, 
                 angle = angle, 
                 button_direction = button_direction, 
@@ -37,7 +37,7 @@ def newTrainingData():
                  appleDV_Normalized[0], snakeDV_Normalized[0], 
                  appleDV_Normalized[1], snakeDV_Normalized[1]])
 
-            snakePositions, applePosition, score = game.run_game(buttonDirection=button_direction)
+            snakePositions, applePosition, score = game.run_game(buttonDirection=updated_button_direction)
 
     return train_X, train_y
 

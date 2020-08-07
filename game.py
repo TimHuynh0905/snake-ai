@@ -33,13 +33,13 @@ class SnakeGame:
             self._drawGrid(rows=self.settings.rows)
             if buttonDirection is not None: 
                 self._updateSnake(buttonDirection)
-            else: self._checkPressed()
-            if len(self.snake.positions) > 1:
-                currentDV, is_front_blocked, is_left_blocked, is_right_blocked = blockedDirections(self.snake.positions)
-                if is_front_blocked == 1 and is_left_blocked == 1 and is_right_blocked == 1: 
+            else: 
+                self._checkPressed()
+                currentDV, isFrontBlocked, isLeftBlocked, isRightBlocked = blockedDirections(self.snake.positions)
+                if isFrontBlocked == 1 and isLeftBlocked == 1 and isRightBlocked == 1: 
                     gameover = True
             self._updateScreen()
-            self.clock.tick(5000000)
+            self.clock.tick(20)
             if buttonDirection is not None: return self.snake.positions, self.apple.position, self.score
 
     def _updateSnake(self, buttonDirection):

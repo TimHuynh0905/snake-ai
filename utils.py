@@ -12,7 +12,7 @@ def startingPositions():
     applePosX = random.randint(1,18)*settings.sizeBtwn
     applePosY = random.randint(1,18)*settings.sizeBtwn
     applePosition = [applePosX, applePosY]
-    score = 3
+    score = 2
     return snakeHead, snakePositions, applePosition, score
 
 def angleSnakeApple(snakePositions, applePosition):
