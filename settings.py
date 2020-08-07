@@ -12,7 +12,10 @@ class Settings:
         
         self.snakeStartPosX = random.randint(0,19)*self.sizeBtwn
         self.snakeStartPosY = random.randint(0,19)*self.sizeBtwn
+        self.snakeHead = [self.snakeStartPosX, self.snakeStartPosY]
+        self.snakePositions = [self.snakeHead, ]
 
         self.applePosX = random.randint(1,18)*self.sizeBtwn
         self.applePosY = random.randint(1,18)*self.sizeBtwn
+        self.applePosition = [self.applePosX, self.applePosY]
         self.appleColor = (random.randint(50,255), random.randint(50,255), random.randint(50,255))

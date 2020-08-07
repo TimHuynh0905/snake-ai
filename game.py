@@ -2,72 +2,92 @@ import sys
 import pygame
 
 from settings import Settings
+from utils import *
 from snake import Snake
 from apple import Apple
 
 class SnakeGame:
-    def __init__(self):
+    def __init__(self, snakePositions=None, applePosition=None, score=0):
         pygame.init()
         self.settings = Settings()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         self.screen_rect = self.screen.get_rect()
-        pygame.display.set_caption("Snake AI Game")
-        self.snake = Snake(self)
-        self.apple = Apple(self)
+        self.score = score
+        
+        if snakePositions is not None: self.snake = Snake(self, snakePositions=snakePositions)
+        else: self.snake = Snake(self, snakePositions=self.settings.snakePositions)
+        
+        if applePosition is not None: self.apple = Apple(self, applePosition=applePosition)
+        else: self.apple = Apple(self, applePosition=self.settings.applePosition)
+        
         self.clock = pygame.time.Clock()
     
-    def run_game(self):
+    def run_game(self, buttonDirection=None):
         gameover = False
         while gameover is not True:
-            self._checkEvents()
-            self.snake.update()
-            self._checkCollision()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    gameover = True
+                    sys.exit()
+            self.screen.fill(self.settings.screen_color)
+            self._drawGrid(rows=self.settings.rows)
+            if buttonDirection is not None: 
+                self._updateSnake(buttonDirection)
+            else: self._checkPressed()
+            if len(self.snake.positions) > 1:
+                currentDV, is_front_blocked, is_left_blocked, is_right_blocked = blockedDirections(self.snake.positions)
+                if is_front_blocked == 1 and is_left_blocked == 1 and is_right_blocked == 1: 
+                    gameover = True
             self._updateScreen()
-            if self.snake.positions[0] in self.snake.positions[1:len(self.snake.positions)]: gameover = True
-            self.clock.tick(20)
+            self.clock.tick(5000000)
+            if buttonDirection is not None: return self.snake.positions, self.apple.position, self.score
 
-    def _checkCollision(self):
-        if (self.snake.positions[0] == self.apple.position):
-            temp = self.apple.position
+    def _updateSnake(self, buttonDirection):
+        newHead = self.snake.positions[0].copy()
+        if buttonDirection == 3:   newHead[1] = self.snake.positions[0][1] - self.settings.sizeBtwn
+        elif buttonDirection == 2: newHead[1] = self.snake.positions[0][1] + self.settings.sizeBtwn
+        elif buttonDirection == 0: newHead[0] = self.snake.positions[0][0] - self.settings.sizeBtwn
+        elif buttonDirection == 1: newHead[0] = self.snake.positions[0][0] + self.settings.sizeBtwn
+        
+        if newHead == self.apple.position:
             self.apple.updatePosition()
-            self.snake.updateHead()
-            self.snake.positions.append(temp)
-
-    def _checkEvents(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT: 
-                sys.exit()
-            self._checkPressed()
-    
+            self.score += 1
+            self.snake.positions.insert(0, newHead)
+        else:
+            self.snake.positions.insert(0, newHead)
+            self.snake.positions.pop()
+        
     def _checkPressed(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_UP]: 
-            self.snake.moving_up = True
-            self.snake.moving_down = False
-            self.snake.moving_left = False
-            self.snake.moving_right = False
+        pressed=False
+        newHead = self.snake.positions[0].copy()
+        if keys[pygame.K_UP]:
+            newHead[1] = self.snake.positions[0][1] - self.settings.sizeBtwn
+            pressed=True
         elif keys[pygame.K_DOWN]:
-            self.snake.moving_up = False
-            self.snake.moving_down = True
-            self.snake.moving_left = False
-            self.snake.moving_right = False
+            newHead[1] = self.snake.positions[0][1] + self.settings.sizeBtwn
+            pressed=True
         elif keys[pygame.K_LEFT]:
-            self.snake.moving_up = False
-            self.snake.moving_down = False
-            self.snake.moving_left = True
-            self.snake.moving_right = False
+            newHead[0] = self.snake.positions[0][0] - self.settings.sizeBtwn
+            pressed=True
         elif keys[pygame.K_RIGHT]:
-            self.snake.moving_up = False
-            self.snake.moving_down = False
-            self.snake.moving_left = False
-            self.snake.moving_right = True
+            newHead[0] = self.snake.positions[0][0] + self.settings.sizeBtwn
+            pressed=True
+        
+        if pressed:
+            if newHead == self.apple.position:
+                self.apple.updatePosition()
+                self.score += 1
+                self.snake.positions.insert(0, newHead)
+            else:
+                self.snake.positions.insert(0, newHead)
+                self.snake.positions.pop()
 
     def _updateScreen(self):
-        self.screen.fill(self.settings.screen_color)
-        self._drawGrid(rows=self.settings.rows)
         self.snake.draw_snake()
         self.apple.draw_apple()
-        pygame.display.flip()
+        pygame.display.set_caption(f"YOUR SCORE = {self.score}")
+        pygame.display.update()
 
     def _drawGrid(self, rows):
         x = 0
