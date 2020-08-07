@@ -26,10 +26,10 @@ def newTrainingData():
             )
 
             if isFrontBlocked == 1 and isLeftBlocked == 1 and isRightBlocked == 1:
-                print("Blocked")
-                print(snakePositions)
-                print(currentDV)
-                print(direction)
+                # print("Blocked")
+                # print(snakePositions)
+                # print(currentDV)
+                # print(direction)
                 break
 
             train_X.append(
