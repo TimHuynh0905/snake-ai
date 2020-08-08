@@ -8,9 +8,9 @@ screen_width, screen_height = settings.screen_width, settings.screen_height
 
 def startingPositions():
     snakeHead = [100, 100]
-    snakePositions = [[100, 100], [75, 100], [50, 100],]
-    applePosX = random.randint(1,18)*settings.sizeBtwn
-    applePosY = random.randint(1,18)*settings.sizeBtwn
+    snakePositions = [[100, 100], [100-settings.rows, 100], [100-2*settings.rows, 100],]
+    applePosX = random.randint(1,settings.rows-2)*settings.sizeBtwn
+    applePosY = random.randint(1,settings.rows-2)*settings.sizeBtwn
     applePosition = [applePosX, applePosY]
     score = 2
     return snakeHead, snakePositions, applePosition, score

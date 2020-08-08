@@ -8,6 +8,8 @@ import getTrainData
 class neuralNetwork:
     def __init__(self):
         train_X, train_y = getTrainData.newTrainingData()
+        print(np.array(train_X).shape)
+        print(np.array(train_y).shape)
         self.in_dim = np.array(train_X).shape[1]
         self.out_dim = np.array(train_y).shape[1]
         self.train_X = np.array(train_X).reshape(-1,self.in_dim)
@@ -21,7 +23,7 @@ class neuralNetwork:
     
     def train(self):
         self.model.compile(optimizer="adam", loss="mean_squared_error", metrics=["accuracy"])
-        self.model.fit(x=self.train_X, y=self.train_y, batch_size=300, epochs=5)
+        self.model.fit(x=self.train_X, y=self.train_y, batch_size=300, epochs=10)
         self.model.save_weights("snake_ai.h5")
 
 
