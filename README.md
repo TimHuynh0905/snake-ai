@@ -11,9 +11,17 @@
 
 ![](snake_gif2.gif)
 
-## Output
+## Input and Output
+### Input
+- Automatically generated ~ 37,500 training data
+- train_X.shape = [37500, 7]
+- train_y.shape = [37500, 3]
+
+### Output
+- The model dynamically works with different grid dimensions (50x50, 30x30, 20x20)
 - Train Accuracy: ~ 97%
 - Train Loss: ~ 2%
+- High Score: 25
 
 ## Reproduction Steps (macOS/ Linux)
 ### Prerequisites
