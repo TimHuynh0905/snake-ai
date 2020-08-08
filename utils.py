@@ -93,3 +93,29 @@ def collidedWithWall(newHead):
 def collidedWithSelf(newHead, snakePositions):
     if newHead in snakePositions[1:]: return True
     else: return False
+
+def blockedDirectionsTrain(snakePositions, applePosition):
+    currentDV = np.array(snakePositions[0]) - np.array(snakePositions[1])
+
+    leftDV = np.array([currentDV[1], -currentDV[0]])
+    rightDV = np.array([-currentDV[1], currentDV[0]])
+
+    isFrontBlocked = isBlockedTrain(snakePositions, currentDV, applePosition)
+    isLeftBlocked = isBlockedTrain(snakePositions, leftDV, applePosition)
+    isRightBlocked = isBlockedTrain(snakePositions, rightDV, applePosition)
+
+    return currentDV, isFrontBlocked, isLeftBlocked, isRightBlocked
+
+def isBlockedTrain(snakePositions, directionVector, applePosition):
+    newHead = snakePositions[0] + directionVector
+    if wouldCollidedWithSelf(snakePositions, directionVector, applePosition) or collidedWithWall(newHead): return 1
+    else: return 0
+    
+def wouldCollidedWithSelf(snakePositions, directionVector, applePosition):
+    steps = (snakePositions[0][0] - 0) // settings.sizeBtwn
+    if directionVector[0] == 0: steps = (screen_height - snakePositions[0][1]) // settings.sizeBtwn
+    for i in range(1,steps+1):    
+        newHead = snakePositions[0] + directionVector*i
+        if newHead.tolist() == applePosition and applePosition not in snakePositions[1:]: return False
+        if newHead.tolist() in snakePositions[1:]: return True
+    return False

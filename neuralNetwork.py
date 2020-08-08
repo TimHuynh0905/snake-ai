@@ -23,7 +23,7 @@ class neuralNetwork:
     
     def train(self):
         self.model.compile(optimizer="adam", loss="mean_squared_error", metrics=["accuracy"])
-        self.model.fit(x=self.train_X, y=self.train_y, batch_size=300, epochs=10)
+        self.model.fit(x=self.train_X, y=self.train_y, batch_size=100, epochs=20)
         self.model.save_weights("snake_ai.h5")
 
 

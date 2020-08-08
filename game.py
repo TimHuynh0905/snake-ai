@@ -35,11 +35,11 @@ class SnakeGame:
                 self._updateSnake(buttonDirection)
             else: 
                 self._checkPressed()
-                currentDV, isFrontBlocked, isLeftBlocked, isRightBlocked = blockedDirections(self.snake.positions)
-                if isFrontBlocked == 1 and isLeftBlocked == 1 and isRightBlocked == 1: 
-                    gameover = True
+                # currentDV, isFrontBlocked, isLeftBlocked, isRightBlocked = blockedDirections(self.snake.positions)
+                # if isFrontBlocked == 1 and isLeftBlocked == 1 and isRightBlocked == 1: 
+                #     gameover = True
             self._updateScreen()
-            self.clock.tick(20)
+            self.clock.tick(50000)
             if buttonDirection is not None: return self.snake.positions, self.apple.position, self.score
 
     def _updateSnake(self, buttonDirection):

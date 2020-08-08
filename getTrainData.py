@@ -5,7 +5,7 @@ from tqdm import tqdm
 def newTrainingData():
     train_X = []
     train_y = []
-    train_games = 100
+    train_games = 10
     train_steps = 2000
     for _ in tqdm(range(train_games)):
         snakeHead, snakePositions, applePosition, score = startingPositions()
@@ -13,7 +13,7 @@ def newTrainingData():
         for j in range(train_steps):
             angle, appleDV_Normalized, snakeDV_Normalized = angleSnakeApple(snakePositions, applePosition)
             direction, button_direction = nextDirection(snakePositions, angle) # FIRST STEP DETERMINE DIRECTION
-            _, isFrontBlocked, isLeftBlocked, isRightBlocked = blockedDirections(snakePositions) # CHECK IF THAT DIRECTION WORKS
+            _, isFrontBlocked, isLeftBlocked, isRightBlocked = blockedDirectionsTrain(snakePositions, applePosition) # CHECK IF THAT DIRECTION WORKS
             _, updated_button_direction, train_y = getTrainY(
                 snakePositions = snakePositions, 
                 angle = angle, 
@@ -35,7 +35,12 @@ def newTrainingData():
             train_X.append(
                 [isLeftBlocked, isFrontBlocked, isRightBlocked, 
                  appleDV_Normalized[0], snakeDV_Normalized[0], 
-                 appleDV_Normalized[1], snakeDV_Normalized[1]])
+                 appleDV_Normalized[1], snakeDV_Normalized[1]]
+            )
+
+            # train_X.append(
+            #     [isLeftBlocked, isFrontBlocked, isRightBlocked, angle]
+            # )
 
             snakePositions, applePosition, score = game.run_game(buttonDirection=updated_button_direction)
 
@@ -53,7 +58,7 @@ def getTrainY(snakePositions, angle, button_direction, direction, train_y,
                 train_y.append([0, 1, 0])
             elif isFrontBlocked == 0 and isRightBlocked == 0:
                 direction, button_direction = directionVector(snakePositions, angle, 1)
-                train_y.append([0, 0, 1])
+                train_y.append([0, 1, 0])
         else:
             train_y.append([1, 0, 0])
 
@@ -80,7 +85,7 @@ def getTrainY(snakePositions, angle, button_direction, direction, train_y,
                 train_y.append([1, 0, 0])
             elif isLeftBlocked == 0 and isFrontBlocked == 0:
                 direction, button_direction = directionVector(snakePositions, angle, -1)
-                train_y.append([1, 0, 0])
+                train_y.append([0, 1, 0])
         else:
             train_y.append([0, 0, 1])
 

@@ -13,9 +13,8 @@ class Settings:
             self.screen_color = (0,0,0)
             self.grid_color = (255,255,255)
 
-        self.rows = 30
+        self.rows = 20
         self.sizeBtwn = self.screen_width // self.rows
-        self.timeDelayInterval = 500
         
         self.snakeStartPosX = random.randint(0,self.rows-1)*self.sizeBtwn
         self.snakeStartPosY = random.randint(0,self.rows-1)*self.sizeBtwn
