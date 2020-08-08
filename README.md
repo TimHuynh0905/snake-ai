@@ -2,26 +2,27 @@
 - Author: Quoc "Tim" Huynh
 - Language: Python (version 3.7.7)
 - A snake game that can be played traditionally or by ML algorithm
-- Last updated: August 7th, 2020.
+- Last updated: August 8th, 2020.
 
 ## Project Overview
 - Learn the basics of Artificial Intelligence
 
 ## Demo 
 
-![](snake_gif2.gif)
+![](snake_gif3.gif)
 
 ## Input and Output
 ### Input
 - Automatically generated ~ 37,500 training data
-- train_X.shape = [37500, 7]
-- train_y.shape = [37500, 3]
+- train_X.shape = [14500, 7]
+- train_y.shape = [14500, 3]
 
 ### Output
 - The model dynamically works with different grid dimensions (50x50, 30x30, 20x20)
 - Train Accuracy: ~ 97%
 - Train Loss: ~ 2%
-- High Score: 25
+- High Score: 38 (Grid: 30x30)
+- Average Score: 26 (Grid: 30x30)
 
 ## Reproduction Steps (macOS/ Linux)
 ### Prerequisites
