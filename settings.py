@@ -13,7 +13,7 @@ class Settings:
             self.screen_color = (0,0,0)
             self.grid_color = (255,255,255)
 
-        self.rows = 50    
+        self.rows = 30
         self.sizeBtwn = self.screen_width // self.rows
         self.timeDelayInterval = 500
         

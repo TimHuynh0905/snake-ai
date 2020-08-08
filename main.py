@@ -24,7 +24,7 @@ def playAI(numGames, numSteps, model):
         print("SCORE = "+str(game.score))
 
 if __name__ == "__main__":
-    numGames = 10
+    numGames = 20
     numSteps = 5000
 
     json_file = open('snake_ai.json', 'r')
