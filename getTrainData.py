@@ -5,7 +5,7 @@ from tqdm import tqdm
 def newTrainingData():
     train_X = []
     train_y = []
-    train_games = 10
+    train_games = 100
     train_steps = 2000
     for _ in tqdm(range(train_games)):
         snakeHead, snakePositions, applePosition, score = startingPositions()
