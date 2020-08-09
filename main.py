@@ -7,6 +7,7 @@ from utils import *
 def playAI(numGames, numSteps, model):
     sum = 0
     highScore = 0
+    i = 1
     for _ in range(numGames):
         game = SnakeGame()
         for _ in range(numSteps):
@@ -27,8 +28,9 @@ def playAI(numGames, numSteps, model):
                 break
 
             _, _, _ = game.run_game(buttonDirection=button_direction)
-        print("SCORE = "+str(game.score))
+        print("GAME " +str(i)+" SCORE = "+str(game.score))
         sum += game.score
+        i += 1
         if (game.score > highScore): highScore = game.score
     return sum//numGames, highScore
 

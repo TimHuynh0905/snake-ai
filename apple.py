@@ -13,7 +13,7 @@ class Apple:
 
     def updatePosition(self):
         # temp = self.position.copy()
-        self.position = [random.randint(1,18)*self.settings.sizeBtwn, random.randint(1,18)*self.settings.sizeBtwn]
+        self.position = [random.randint(1,self.settings.rows-2)*self.settings.sizeBtwn, random.randint(1,self.settings.rows-2)*self.settings.sizeBtwn]
         # while (temp == self.position):
         #     self.position = [random.randint(1,18)*self.settings.sizeBtwn, random.randint(1,18)*self.settings.sizeBtwn]
         self.color = (random.randint(50,255), random.randint(50,255), random.randint(50,255))  
