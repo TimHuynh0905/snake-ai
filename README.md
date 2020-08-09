@@ -2,7 +2,7 @@
 - Author: Quoc "Tim" Huynh
 - Language: Python (version 3.7.7)
 - A snake game that can be played traditionally or by ML algorithm
-- Last updated: August 8th, 2020.
+- Last updated: August 9th, 2020.
 
 ## Project Overview
 - Learn the basics of Artificial Intelligence
@@ -19,10 +19,11 @@
 
 ### Output
 - The model dynamically works with different grid dimensions (50x50, 30x30, 20x20)
-- Train Accuracy: ~ 97%
+- Train Accuracy: ~ 98%
 - Train Loss: ~ 2%
-- High Score: 38 (Grid: 30x30)
-- Average Score: 26 (Grid: 30x30)
+- Grid size 50x50: High score = 89; average score = 51.
+- Grid size 30x30: High score = 57; average score = 35.
+- Grid size 20x20: High score = 46; average score = 22.
 
 ## Reproduction Steps (macOS/ Linux)
 ### Prerequisites
